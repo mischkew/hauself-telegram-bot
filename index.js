@@ -2,7 +2,6 @@ import './src/polyfills'
 import Telegraf from 'telegraf'
 
 const telegraf = new Telegraf(process.env.BOT_TOKEN)
-
 telegraf.use(Telegraf.memorySession())
 
 // Logger middleware
@@ -48,8 +47,12 @@ telegraf.hears(/reverse (.+)/, function * () {
 })
 
 // Start polling
-// telegraf.startPolling()
-telegraf.setWebHook(process.env.APP_NAME + '.herokuapp.com/secret-path')
 
-// Http webhook, for nginx/heroku users.
-telegraf.startWebHook('/secret-path', null, 5000)
+
+let domain = 'http://' + process.env.APP_NAME + '.herokuapp.com'
+if (process.env.APP_NAME === 'localhost') {
+  domain = 'http://localhost:5000'
+}
+
+console.log('Start Polling')
+telegraf.startPolling()
