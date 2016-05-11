@@ -30,4 +30,5 @@ function polyfillBluebird() {
 // Execute Polyfills
 //
 
+import 'babel-polyfill'
 polyfillBluebird()
