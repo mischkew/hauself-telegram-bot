@@ -1,53 +1,24 @@
 import './src/polyfills'
 import Telegraf from 'telegraf'
+import { setupMensa } from './src/commands/mensaCommand'
+
+// TODO: fix json-jscs errors in emacs
+// TODO: put telegraf logic into bot.js
+// TODO: only leave telegraf polling in index.js
+
+// TODO: write testable code!
+// TODO: create commands/mensaCommand.js
+// TODO: use apis/mensaApi.js and load mensa info
+// TODO: document commands in bot.js so BotFather can add them via copy & paste
+
+// TODO: add tests for jrr-frontend for api
+// TODO: add mocha tests for mensaCommand.js
 
 const telegraf = new Telegraf(process.env.BOT_TOKEN)
 telegraf.use(Telegraf.memorySession())
 
-// Logger middleware
-telegraf.use(function * (next) {
-  var start = new Date()
-  this.state.started = start
-  yield next
-  var ms = new Date() - start
-  console.log(ms)
-})
-
-// Sample middleware
-var sayYoMiddleware = function * (next) {
-  yield this.reply('yo')
-  yield next
-}
-
-// Random advice bot!
-telegraf.on('text', function * (next) {
-  if (Math.random() > 0.5) {
-    yield this.reply('Highly advised to visit:')
-    yield this.replyWithLocation((Math.random() * 180) - 90, (Math.random() * 180) - 90)
-  }
-  yield next
-})
-
-// Text messages handling
-telegraf.hears('Hey', sayYoMiddleware, function * () {
-  this.session.heyCounter = this.session.heyCounter || 0
-  this.session.heyCounter++
-  this.reply(`${this.session.heyCounter} _Hey_`, {parse_mode: 'Markdown'})
-})
-
-// Command handling
-telegraf.hears('/answer', sayYoMiddleware, function * () {
-  debug(this.message)
-  this.reply('*42*', {parse_mode: 'Markdown'})
-})
-
-// Wow! RegEx
-telegraf.hears(/reverse (.+)/, function * () {
-  this.reply(this.match[1].split('').reverse().join(''))
-})
-
-// Start polling
-
+// Mensa Command
+setupMensa(telegraf)
 
 let domain = 'http://' + process.env.APP_NAME + '.herokuapp.com'
 if (process.env.APP_NAME === 'localhost') {
