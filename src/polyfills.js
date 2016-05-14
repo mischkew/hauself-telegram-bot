@@ -15,7 +15,7 @@ function polyfillBluebird() {
   } else {
     try {
       local = Function('return this')()
-    } catch(e) {
+    } catch (e) {
       throw new Error(
         'Bluebird polyfill failed because global object' +
         ' is unavailable in this environment'

@@ -1,15 +1,14 @@
 import { expect } from 'chai'
 import debug from 'debug'
-import MensaApi, { MENSA_GRIEBNITZSEE,
-                   MENSA_ULF } from '../src/apis/mensa'
+import MensaApi, { MENSA_GRIEBNITZSEE } from '../../../src/commands/mensa/mensaApi'
 const log = debug('e2e')
 
 describe('mensa api', () => {
   it('should retrieve data from griebnitzsee', (done) => {
     const api = new MensaApi()
     api
-      .getMenu(MENSA_GRIEBNITZSEE)
-      .then(({ json }) => {
+      .getMensaMenus(MENSA_GRIEBNITZSEE)
+      .then(json => {
         log('Response', json)
         log('Meals of first entry', json[0].meals)
 

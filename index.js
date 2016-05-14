@@ -1,6 +1,6 @@
 import './src/polyfills'
 import Telegraf from 'telegraf'
-import { setupMensa } from './src/commands/mensaCommand'
+import { setupMensa } from './src/commands/mensa/mensaCommand'
 
 // TODO: fix json-jscs errors in emacs
 // TODO: put telegraf logic into bot.js
