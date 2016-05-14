@@ -28,10 +28,9 @@ if (process.env.OPERATING_MODE === 'polling') {
   console.log('Start Polling')
   telegraf.startPolling()
 } else if (process.env.OPERATING_MODE === 'webhook') {
-  console.log('Setup Webhook')
-
   // build heroku deploy url
   let domain = 'https://' + process.env.APP_NAME + '.herokuapp.com'
+  console.log('Setup Webhook for', domain)
 
   // set telegram webhook
   telegraf.setWebHook(domain + '/secret-path')
