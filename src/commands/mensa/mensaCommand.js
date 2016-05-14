@@ -5,6 +5,11 @@ import nextMealDate from './nextMealDate'
 import mealsToMarkdown from './mealsToMarkdown'
 const log = debug('mensaCommand:command')
 
+// TODO: build a cache for openmensa results
+// as the api may timeout
+// clear cache a day after
+// build up cache at night
+
 //
 // ## Parse Api Response
 //
