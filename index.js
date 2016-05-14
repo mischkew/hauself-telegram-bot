@@ -33,10 +33,10 @@ if (process.env.OPERATING_MODE === 'polling') {
   console.log('Setup Webhook for', domain)
 
   // set telegram webhook
-  telegraf.setWebHook(domain + '/secret-path')
+  telegraf.setWebHook(domain + '/' + process.env.BOT_TOKEN)
 
   // http webhook, for nginx/heroku users.
-  telegraf.startWebHook('/secret-path', null, 5000)
+  telegraf.startWebHook('/' + process.env.BOT_TOKEN, null, process.env.PORT)
 } else {
   throw new Error('Define OPERATING_MODE environment variable.')
 }
