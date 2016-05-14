@@ -20,10 +20,25 @@ telegraf.use(Telegraf.memorySession())
 // Mensa Command
 setupMensa(telegraf)
 
-let domain = 'http://' + process.env.APP_NAME + '.herokuapp.com'
-if (process.env.APP_NAME === 'localhost') {
-  domain = 'http://localhost:5000'
-}
+//
+// Operating Mode
+//
 
-console.log('Start Polling')
-telegraf.startPolling()
+if (process.env.OPERATING_MODE === 'polling') {
+  console.log('Start Polling')
+  telegraf.startPolling()
+} else if (process.env.OPERATING_MODE === 'webhook') {
+  console.log('Setup Webhook')
+  let domain = 'http://' + process.env.APP_NAME + '.herokuapp.com'
+  if (process.env.APP_NAME === 'localhost') {
+    domain = 'http://localhost:5000'
+  }
+
+  // set telegram webhook
+  telegraf.setWebHook(domain + '/secret-path')
+
+  // http webhook, for nginx/heroku users.
+  telegraf.startWebHook('/secret-path', null, 5000)
+} else {
+  throw new Error('Define OPERATING_MODE environment variable.')
+}
