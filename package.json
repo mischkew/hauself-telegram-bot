@@ -5,8 +5,8 @@
   "main": "main.js",
   "scripts": {
     "start": "node ./main.js",
-    "test": "mocha --recursive --compilers js:babel-register --require babel-polyfill test/",
-    "e2e": "mocha --recursive --compilers js:babel-register e2e/*.js"
+    "test": "mocha --recursive --compilers js:babel-register --require ./src/polyfills test/",
+    "e2e": "mocha --recursive --compilers js:babel-register --require ./src/polyfills e2e/"
   },
   "author": "",
   "license": "ISC",

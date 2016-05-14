@@ -1,5 +1,7 @@
 {
   "preset": "airbnb",
   "disallowSemicolons": true,
-  "requireSemicolons": false
+  "requireSemicolons": false,
+  "disallowTrailingComma": true,
+  "requireTrailingComma": false
 }
