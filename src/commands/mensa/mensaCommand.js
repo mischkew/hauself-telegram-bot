@@ -67,7 +67,7 @@ export function getNextMenus() {
 //
 
 export function * replyMenus() {
-  getNextMenus()
+  return getNextMenus()
     .then((message) => this.reply(message, { parse_mode: 'Markdown' }))
 }
 
