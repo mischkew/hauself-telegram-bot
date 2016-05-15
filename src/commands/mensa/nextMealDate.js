@@ -24,7 +24,7 @@ function nextMonday(_moment) {
   } else if (_moment.days() === 0) { // sunday
     return _moment.add(1, 'days').format(DATE_FORMAT)
   } else {
-    throw new Error('nextMonday can only be calculated from weekend-days.')
+    throw new Error(`nextMonday can only be calculated from weekend-days, given ${_moment.days()}`)
   }
 }
 
@@ -51,11 +51,11 @@ export default function nextMealDate(_moment = moment()) {
   log('_isAfternoon %s', _isAfternoon)
 
   if (isWeekend(_today)) {
-    return nextMonday(_moment)
+    return nextMonday(moment(_today))
   }
 
   if (isWeekend(_tomorrow) && _isAfternoon) {
-    return nextMonday(_moment)
+    return nextMonday(moment(_tomorrow))
   }
 
   if (_isAfternoon) {
