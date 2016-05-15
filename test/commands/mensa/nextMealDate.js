@@ -27,4 +27,9 @@ describe('Next Meal Date', () => {
     const m = moment('2016-05-14')
     expect(nextMealDate(m)).to.equal('2016-05-16')
   })
+
+  it('should retrieve date of next monday from sunday afternoon', () => {
+    const m = moment('2016-05-15')
+    expect(nextMealDate(m)).to.equal('2016-05-16')
+  })
 })
