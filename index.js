@@ -24,9 +24,12 @@ setupMensa(telegraf)
 // Operating Mode
 //
 
+// Reset Webhook Configs
+
 if (process.env.OPERATING_MODE === 'polling') {
   console.log('Start Polling')
-  telegraf.startPolling()
+  telegraf.removeWebHook()
+    .then(() => telegraf.startPolling())
 } else if (process.env.OPERATING_MODE === 'webhook') {
   // build heroku deploy url
   let domain = 'https://' + process.env.APP_NAME + '.herokuapp.com'
