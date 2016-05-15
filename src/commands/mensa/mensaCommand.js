@@ -75,6 +75,6 @@ export function * replyMenus() {
 // ## Telegraf Hearing
 //
 
-export function setupMensa(telegraf) {
-  telegraf.hears('/mensa', replyMenus)
+export function setupMensa(telegraf, ...middlewares) {
+  telegraf.hears('/mensa', ...middlewares, replyMenus)
 }

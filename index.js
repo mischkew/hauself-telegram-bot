@@ -1,6 +1,7 @@
 import './src/polyfills'
 import Telegraf from 'telegraf'
 import { setupMensa } from './src/commands/mensa/mensaCommand'
+import sayingsMiddleware from './src/middlewares/sayingsMiddleware'
 
 // TODO: fix json-jscs errors in emacs
 // TODO: put telegraf logic into bot.js
@@ -18,7 +19,7 @@ const telegraf = new Telegraf(process.env.BOT_TOKEN)
 telegraf.use(Telegraf.memorySession())
 
 // Mensa Command
-setupMensa(telegraf)
+setupMensa(telegraf, sayingsMiddleware)
 
 //
 // Operating Mode
