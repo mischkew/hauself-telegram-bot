@@ -8,7 +8,7 @@ describe('mensa api', () => {
     const api = new MensaApi()
     api
       .getMensaMenus(MENSA_GRIEBNITZSEE)
-      .then(json => {
+      .then((json) => {
         log('Response', json)
         log('Meals of first entry', json[0].meals)
 

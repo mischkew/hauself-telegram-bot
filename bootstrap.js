@@ -11,6 +11,7 @@
 // Add packges names here.
 var ES6_PACKAGES = [
   'fetch-mock',
+  'fetch-api',
   'telegraf'
 ]
 require('babel-core/register')({

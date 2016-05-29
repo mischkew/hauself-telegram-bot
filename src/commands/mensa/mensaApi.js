@@ -1,6 +1,6 @@
 import debug from 'debug'
 import _ from 'lodash'
-import Api from '../../lib/api'
+import Api from 'fetch-api'
 const log = debug('mensaCommand:api')
 
 const URL_API = 'http://openmensa.org/api/v2/'
@@ -18,8 +18,8 @@ export const MENSAS = [
 ]
 
 export default class MensaApi extends Api {
-  constructor() {
-    super({ apiUrl: URL_MENSA })
+  constructor(options = {}) {
+    super(URL_MENSA, options)
   }
 
   //
@@ -35,12 +35,12 @@ export default class MensaApi extends Api {
   //
 
   getMensa(id) {
-    return this.get(id).then(({ json }) => json)
+    return this.get(id).then(r => r.data)
   }
 
   getMensaMenus(id) {
     const url = this.getMensaMenuUrl(id)
-    return this.get(url).then(({ json }) => json)
+    return this.get(url).then(r => r.data)
   }
 
   //
