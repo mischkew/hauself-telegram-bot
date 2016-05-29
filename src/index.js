@@ -20,6 +20,36 @@ telegraf.use(Telegraf.memorySession())
 // Mensa Command
 setupMensa(telegraf, sayingsMiddleware)
 
+function * sbahnMiddleware() {
+  console.log(this.message.text)
+}
+
+telegraf.on('text', function * (next) {
+  if (this.session.sbahn === 'select') {
+    this.session.sbahn = 'null'
+    yield sbahnMiddleware
+  } else {
+    yield next
+  }
+})
+
+telegraf.hears('/sbahn', function * () {
+  this.session.sbahn = 'select'
+  this.reply('Choose a station', {
+    reply_markup: {
+      keyboard: [[
+        { text: 'S Griebnitzsee' }
+      ]],
+      one_time_keyboard: true,
+      resize_keyboard: true
+    }
+  })
+})
+
+telegraf.hears('/cancel', function * () {
+  this.reply('Ok. Undo everything.')
+})
+
 //
 // Operating Mode
 //
