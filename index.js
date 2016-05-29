@@ -1,4 +1,3 @@
-import './src/polyfills'
 import Telegraf from 'telegraf'
 import { setupMensa } from './src/commands/mensa/mensaCommand'
 import sayingsMiddleware from './src/middlewares/sayingsMiddleware'

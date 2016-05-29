@@ -1,6 +1,6 @@
 function polyfillBluebird() {
-  let local = null
-  const Promise = require('bluebird')
+  var local = null
+  var Promise = require('bluebird')
 
   // configuration
   Promise.config({
@@ -26,9 +26,4 @@ function polyfillBluebird() {
   local.Promise = Promise
 }
 
-//
-// Execute Polyfills
-//
-
-import 'babel-polyfill'
 polyfillBluebird()
