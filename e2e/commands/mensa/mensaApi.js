@@ -13,12 +13,17 @@ describe('mensa api', () => {
         log('Meals of first entry', json[0].meals)
 
         expect(json).to.be.an.array
-        expect(json[0]).to.have.property('date')
-        expect(json[0]).to.have.property('closed')
-        expect(json[0]).to.have.property('meals')
-        expect(json[0].meals).to.be.an.array
-        expect(json[0].meals[0]).to.have.property('name')
-        expect(json[0].meals[0]).to.have.property('category')
+        if (json.length > 0) {
+          expect(json[0]).to.have.property('date')
+          expect(json[0]).to.have.property('closed')
+          expect(json[0]).to.have.property('meals')
+          expect(json[0].meals).to.be.an.array
+          expect(json[0].meals[0]).to.have.property('name')
+          expect(json[0].meals[0]).to.have.property('category')
+        } else {
+          console.warn('The todays menu is empty.')
+        }
+
         done()
       })
   })

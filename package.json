@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "node ./main.js",
+    "start": "node main.js",
     "test": "mocha --recursive --require ./bootstrap test/",
     "test-debug": "mocha debug --recursive --require ./bootstrap test/",
     "e2e": "mocha --recursive --require ./bootstrap e2e/",
@@ -22,17 +22,17 @@
     "moment": "^2.13.0",
     "telegraf": "^0.6.3",
     "telegraf-flow": "^0.8.1",
-    "url": "^0.11.0"
+    "url": "^0.11.0",
+    "babel-core": "^6.8.0",
+    "babel-polyfill": "^6.8.0",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "source-map-support": "^0.4.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "fetch-mock": "^4.5.0",
     "mocha": "^2.4.5",
-    "simple-mock": "^0.7.0",
-    "source-map-support": "^0.4.0",
-    "babel-core": "^6.8.0",
-    "babel-polyfill": "^6.8.0",
-    "babel-preset-es2015": "^6.6.0",
-    "babel-preset-stage-0": "^6.5.0"
+    "simple-mock": "^0.7.0"
   }
 }

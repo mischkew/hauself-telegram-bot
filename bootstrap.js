@@ -4,6 +4,11 @@
 //
 
 //
+// Node.js Source Maps
+//
+require('source-map-support').install()
+
+//
 // Enable ES6
 //
 
