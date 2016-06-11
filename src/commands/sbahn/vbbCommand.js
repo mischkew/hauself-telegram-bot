@@ -36,7 +36,7 @@ export function * chooseStation() {
 
   const stationLayout = _.map(STATION_IDS, ({ name }) => [{ text: name }])
 
-  yield this.reply('Choose a station', {
+  yield this.reply('Choose a station.', {
     reply_markup: {
       keyboard: stationLayout,
       one_time_keyboard: true,
@@ -62,13 +62,38 @@ export function * replyDepartures(context, id) {
 
 flow.registerFlow(
   'sbahn-departures',
+
+  // start handlers
   chooseStation,
+
+  // handlers
   function * () {
+    log('Answer Chosen Station')
+
     if (this.message && this.message.text) {
+      log(this.message)
       const station = _.findKey(STATION_IDS, { name: this.message.text })
-      yield replyDepartures(this, station)
-    } else {
-      yield this.reply('I don\'t know that station, sorry Master!')
+      if (station) {
+        yield replyDepartures(this, station)
+        yield this.flow.stop()
+        return
+      }
+    }
+
+    yield this.reply(
+      'I don\'t know that station, sorry Master!\n'
+      + 'Either select a station from the keyboard or use the /cancel command.'
+    )
+    yield this.flow.restart('sbahn-departures')
+  },
+
+  // end handlers
+  function * () {
+    if (flow.cancelCommands.indexOf(this.message.text) !== -1) {
+      log('Cancel Sbahn Departures')
+      yield this.reply('Ok, we cancel this.', {
+        reply_markup: { hide_keyboard: true }
+      })
     }
   }
 )
