@@ -1,54 +1,37 @@
 import Telegraf from 'telegraf'
-import { setupMensa } from './src/commands/mensa/mensaCommand'
-import sayingsMiddleware from './src/middlewares/sayingsMiddleware'
-
-// TODO: fix json-jscs errors in emacs
-// TODO: put telegraf logic into bot.js
-// TODO: only leave telegraf polling in index.js
-
-// TODO: write testable code!
-// TODO: create commands/mensaCommand.js
-// TODO: use apis/mensaApi.js and load mensa info
-// TODO: document commands in bot.js so BotFather can add them via copy & paste
-
-// TODO: add tests for jrr-frontend for api
-// TODO: add mocha tests for mensaCommand.js
+import flow from './flow'
+import { startVBB, setupVBB } from './commands/sbahn/vbbCommand'
+import { setupMensa } from './commands/mensa/mensaCommand'
+import sayingsMiddleware from './middlewares/sayingsMiddleware'
 
 const telegraf = new Telegraf(process.env.BOT_TOKEN)
 telegraf.use(Telegraf.memorySession())
+telegraf.use(flow.middleware())
 
-// Mensa Command
-setupMensa(telegraf, sayingsMiddleware)
+telegraf.hears(
+  '/start',
 
-function * sbahnMiddleware() {
-  console.log(this.message.text)
-}
-
-telegraf.on('text', function * (next) {
-  if (this.session.sbahn === 'select') {
-    this.session.sbahn = 'null'
-    yield sbahnMiddleware
-  } else {
+  function * (next) {
+    // store user data on startup
+    this.session.user = this.message.from
     yield next
+  },
+
+  // start commands
+  startVBB,
+
+  // setup commands
+  function * () {
+    console.log('all start handlers are setup')
+    console.log('register commands')
+
+    // Mensa Command
+    setupMensa(telegraf, sayingsMiddleware)
+
+    // VBB Command
+    setupVBB(telegraf)
   }
-})
-
-telegraf.hears('/sbahn', function * () {
-  this.session.sbahn = 'select'
-  this.reply('Choose a station', {
-    reply_markup: {
-      keyboard: [[
-        { text: 'S Griebnitzsee' }
-      ]],
-      one_time_keyboard: true,
-      resize_keyboard: true
-    }
-  })
-})
-
-telegraf.hears('/cancel', function * () {
-  this.reply('Ok. Undo everything.')
-})
+)
 
 //
 // Operating Mode

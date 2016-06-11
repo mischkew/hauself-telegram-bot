@@ -3,6 +3,7 @@ import debug from 'debug'
 import MensaApi, { MENSAS } from './mensaApi'
 import nextMealDate from './nextMealDate'
 import mealsToMarkdown from './mealsToMarkdown'
+import schedule from 'node-schedule'
 const log = debug('mensaCommand:command')
 
 // TODO: build a cache for openmensa results
@@ -76,5 +77,9 @@ export function * replyMenus() {
 //
 
 export function setupMensa(telegraf, ...middlewares) {
+  schedule.scheduleJob('1 * * * *', () => {
+    console.log(telegraf.session)
+  })
+
   telegraf.hears('/mensa', ...middlewares, replyMenus)
 }
