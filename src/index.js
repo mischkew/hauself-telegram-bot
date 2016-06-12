@@ -30,6 +30,9 @@ telegraf.hears(
 
     // VBB Command
     setupVBB(telegraf)
+
+    // get back to the user
+    this.reply('Everything is setup, Master! The elf will do its best.')
   }
 )
 
