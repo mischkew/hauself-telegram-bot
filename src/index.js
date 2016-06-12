@@ -29,7 +29,7 @@ telegraf.hears(
     setupMensa(telegraf, sayingsMiddleware)
 
     // VBB Command
-    setupVBB(telegraf)
+    setupVBB(telegraf, sayingsMiddleware)
 
     // get back to the user
     this.reply('Everything is setup, Master! The elf will do its best.')
