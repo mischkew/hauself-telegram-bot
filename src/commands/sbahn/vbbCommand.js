@@ -36,7 +36,8 @@ export function * chooseStation() {
 
   const stationLayout = _.map(STATION_IDS, ({ name }) => [{ text: name }])
 
-  yield this.reply('Choose a station.', {
+  yield this.reply(bold('Choose a station.'), {
+    parse_mode: 'Markdown',
     reply_markup: {
       keyboard: stationLayout,
       one_time_keyboard: true,
