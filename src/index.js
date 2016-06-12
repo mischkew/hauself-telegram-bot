@@ -8,12 +8,23 @@ const telegraf = new Telegraf(process.env.BOT_TOKEN)
 telegraf.use(Telegraf.memorySession())
 telegraf.use(flow.middleware())
 
+// notify the user to use the /start command
+telegraf.use(function * (next) {
+  yield next
+
+  if (!this.session.started) {
+    this.reply('Dobby is not called into service yet. Use the /start command, Master.')
+  }
+})
+
 telegraf.hears(
   '/start',
 
   function * (next) {
     // store user data on startup
     this.session.user = this.message.from
+
+    this.session.started = true
     yield next
   },
 
