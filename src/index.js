@@ -13,7 +13,11 @@ telegraf.use(function * (next) {
   yield next
 
   if (!this.session.started) {
-    this.reply('Dobby is not called into service yet. Use the /start command, Master.')
+    this.reply('Dobby is not called into service yet. Use the /start command, Master.', {
+      reply_markup: { // hide remaining keyboards
+        hide_keyboard: true
+      }
+    })
   }
 })
 
@@ -43,7 +47,11 @@ telegraf.hears(
     setupVBB(telegraf, sayingsMiddleware)
 
     // get back to the user
-    this.reply('Everything is setup, Master! The elf will do its best.')
+    this.reply('Everything is setup, Master! The elf will do its best.', {
+      reply_markup: { // hide remaining keyboards
+        hide_keyboard: true
+      }
+    })
   }
 )
 
