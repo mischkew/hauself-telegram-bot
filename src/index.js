@@ -2,6 +2,7 @@ import Telegraf from 'telegraf'
 import debug from 'debug'
 import flowEngine from './flow'
 import { CANCEL_COMMANDS } from './sharedCommands'
+import { setupPocket, setupPocketAuthApi } from './commands/pocket/pocketCommand'
 import { setupSbahn } from './commands/sbahn/sbahnCommand'
 import { setupMensa } from './commands/mensa/mensaCommand'
 import sayingsMiddleware from './middlewares/sayingsMiddleware'
@@ -65,6 +66,8 @@ async function setup(ctx, next) {
   // S-Bahn Command
   await setupSbahn(telegraf, sayingsMiddleware)
 
+  // Pocket Command
+  await setupPocket(telegraf)
 
   CANCEL_COMMANDS.forEach((command) => {
     telegraf.command(command, (ctx) => {
@@ -75,6 +78,8 @@ async function setup(ctx, next) {
   return next()
 }
 
+// setup express app routes
+setupPocketAuthApi(telegraf, app)
 
 // automatically setup all middleware, when previous session was
 // interrupted
