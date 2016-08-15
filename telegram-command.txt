@@ -1,0 +1,5 @@
+mensa - Menus in registered canteens for the next day
+sbahn - Departure boards for registered stations
+pocket - Choose a random article from your Pocket list
+pocketAuth - Authenticate your Pocket account
+cancel - Cancel whatever you do

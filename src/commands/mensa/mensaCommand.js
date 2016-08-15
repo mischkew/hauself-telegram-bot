@@ -67,19 +67,19 @@ export function getNextMenus() {
 // ## Telegraf Reply
 //
 
-export function * replyMenus() {
-  return getNextMenus()
-    .then((message) => this.reply(message, { parse_mode: 'Markdown' }))
+export function replyMenus(ctx) {
+  return getNextMenus().then((message) => ctx.replyWithMarkdown(message))
 }
 
 //
 // ## Telegraf Hearing
 //
 
-export function setupMensa(telegraf, ...middlewares) {
+export function setupMensa(telegraf, ctx, ...middlewares) {
   schedule.scheduleJob('1 * * * *', () => {
-    console.log(telegraf.session)
+    console.log('scheduled event')
+    telegraf.sendMessage(ctx.session.user.id, 'scheduled test')
   })
 
-  telegraf.hears('/mensa', ...middlewares, replyMenus)
+  telegraf.command('/mensa', ...middlewares, replyMenus)
 }

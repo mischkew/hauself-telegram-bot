@@ -25,14 +25,14 @@ function randomSaying(sayings) {
   return _.template(_.sample(sayings))
 }
 
-export default function * sayingsMiddleware(next) {
+export default async function sayingsMiddleware(ctx, next) {
   if (shouldSayPreSaying()) {
-    yield this.reply(randomSaying(PRE_SAYINGS)(this.message.from))
+     await ctx.reply(randomSaying(PRE_SAYINGS)(ctx.from))
   }
 
-  yield next
+  await next()
 
   if (shouldSayPostSaying()) {
-    yield this.reply(randomSaying(POST_SAYINGS)(this.message.from))
+    await ctx.reply(randomSaying(POST_SAYINGS)(ctx.from))
   }
 }

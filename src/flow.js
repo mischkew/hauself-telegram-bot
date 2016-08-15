@@ -1,4 +1,4 @@
 import TelegrafFlow from 'telegraf-flow'
 
-const flow = new TelegrafFlow()
-export default flow
+const flowEngine = new TelegrafFlow()
+export default flowEngine

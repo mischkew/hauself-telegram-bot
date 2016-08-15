@@ -2,7 +2,7 @@ import debug from 'debug'
 import _ from 'lodash'
 import moment from 'moment'
 import Api from 'fetch-api'
-const log = debug('vbbCommand:api')
+const log = debug('sbahnCommand:api')
 
 const URL_API = 'http://demo.hafas.de/openapi/vbb-proxy/'
 export const DEPARTURE_BOARD_API = 'departureBoard'
