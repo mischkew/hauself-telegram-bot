@@ -6,8 +6,7 @@ MAINTAINER Anand Mani Sankar
 
 # Install System dependencies
 RUN apt-get update && \
-    apt-get install sudo && \
-    apt-get -y install curl
+    apt-get -y install sudo curl git
 
 # Allow sudo usage
 RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
