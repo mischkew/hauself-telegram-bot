@@ -72,6 +72,7 @@ export default class VBBApi extends Api {
   }
 
   getDepartureBoardForStation(stationName) {
+    log('Departure Board for %s', STATION_IDS[stationName].locationId)
     return this.getDepartureBoard(STATION_IDS[stationName].locationId)
   }
 }
